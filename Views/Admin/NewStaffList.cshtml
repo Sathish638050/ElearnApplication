@@ -1,0 +1,33 @@
+﻿@model IList<ELearnApplication.Models.NewStaff>
+@{
+    ViewData["Title"] = "NewRequest";
+}
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach(var obj in Model)
+        {
+            <div class="col">
+                <div class="card text-center" style="width: 18rem;">
+                    <img src=~/images/@obj.UserImage class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@obj.Name</h5>
+                        <p class="card-text">UserName : @obj.Username</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Email :@obj.Email</li>
+                        <li class="list-group-item">Mobile Number : @obj.Phone</li>
+                        <li class="list-group-item">Higher Education Level : @obj.High</li>
+                        <li class="list-group-item">Department : @obj.Department</li>
+                        <li class="list-group-item">College : @obj.College</li>
+                        <li class="list-group-item">Experience : @obj.Experience</li>
+                    </ul>
+                    <div class="card-body">
+                        <a  class="btn btn-primary" onclick="location.href='@Url.Action("AcceptReq","Admin",obj)'">Accept</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

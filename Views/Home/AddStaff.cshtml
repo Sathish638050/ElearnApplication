@@ -1,0 +1,96 @@
+﻿@model ELearnApplication.Models.NewStaff
+@{ 
+    ViewData["Title"] = "AddRequest";
+}
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Request Form</h4>
+                </header>
+                <article class="card-body">
+                    @if (ViewBag.ErrorMsg != null)
+                    {
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>@ViewBag.ErrorMsg</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    <form asp-action="AddStaff">
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="Name">Name</label>
+                                <input asp-for="Name" type="text" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="Username">Usename</label>
+                                <input asp-for="Username" type="text" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="Password">Password</label>
+                                <input class="form-control" type="password" asp-for="Password" />
+                                <span asp-validation-for="Password"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row row">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="Email">Email</label>
+                                <input asp-for="Email" type="text" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="Phone">Phone</label>
+                                <input asp-for="Phone" type="text" class="form-control" />
+                                <span asp-validation-for="Phone"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="High">Higher Education</label>
+                                <input asp-for="High" type="text" class="form-control" />
+                                <span asp-validation-for="High" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="Department">Department</label>
+                                <input asp-for="Department" type="text" class="form-control" />
+                                <span asp-validation-for="Department"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label asp-for="College">College</label>
+                                <input asp-for="College" type="text" class="form-control" />
+                                <span asp-validation-for="College"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label asp-for="Experience">Work Experience</label>
+                                <input asp-for="Experience" type="text" class="form-control" />
+                                <span asp-validation-for="Experience"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label asp-for="UserImage">User Image</label>
+                                <input asp-for="UserImage" type="file" class="form-control" />
+                                <span asp-validation-for="UserImage" class="text-danger"></span>
+                            </div>
+                        </div><br />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">ADD REQUEST</button>
+                            </div>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@model ELearnApplication.Models.Course
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    ViewBag.Role = @HttpContextAccessor.HttpContext.Session.GetString("Role");
+}
+
+<div class=" row justify-content-center">
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>@ViewBag.ErrorMessage</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="card" style="width:18rem">
+        <img src="~/images/@ViewBag.Course.Picture" />
+        <div class="card-body">
+            <h5 class="card-title">@ViewBag.Course.CourseName</h5>
+            <p class="card-text">@ViewBag.Course.Description</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Amount : @ViewBag.Course.Amount</li>
+        </ul>
+        <div class="card-body">
+            @if (ViewBag.Role == "Student")
+            {
+                <a asp-controller="Student" asp-action="Course" class="btn btn-primary">Back</a>
+                @if (ViewBag.ErrorMessage == null)
+                {
+                    <a asp-controller="Student" asp-action="Payment" asp-route-id="@ViewBag.Course.CourseId" class="btn btn-primary">Payment</a>
+                }
+                else
+                {
+                    <a asp-controller="Student" asp-action="DisplayDetail" asp-route-id="@ViewBag.Course.CourseId" class="btn btn-primary">Payment</a>
+                }
+            }
+            else if (ViewBag.Role == "Staff")
+            {
+                <a asp-controller="Student" asp-action="Course" class="btn btn-primary">Back</a>
+            }
+            else if (ViewBag.Role == "Admin")
+            {
+                <a asp-controller="Student" asp-action="Course" class="btn btn-primary">Back</a>
+            }
+        </div>
+    </div>
+</div>

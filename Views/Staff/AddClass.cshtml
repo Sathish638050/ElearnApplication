@@ -1,0 +1,67 @@
+﻿@model ELearnApplication.Models.Class
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{ 
+    ViewData["Title"] = "MyCourse";
+    ViewBag.UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2 text-center">
+                        Class Details
+                    </h4>
+                </header>
+                <article class="card-body">
+                    <form asp-action="AddClass">
+                        <div class="form-row row">
+                            <div class="form-group">
+                                <label asp-for="CourseId">Course Id</label>
+                                <input asp-for="CourseId" type="text" class="form-control" value=@ViewBag.CourseId />
+                                <span asp-validation-for="CourseId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group">
+                                <label asp-for="StartTime">Start Time</label>
+                                <input asp-for="StartTime" type="time" class="form-control" />
+                                <span asp-validation-for="StartTime" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group">
+                                <label asp-for="EndTime">End Time</label>
+                                <input asp-for="EndTime" type="time" class="form-control" />
+                                <span asp-validation-for="EndTime" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group">
+                                <label asp-for="Clink">Meeting Link</label>
+                                <input asp-for="Clink" type="text" class="form-control" />
+                                <span asp-validation-for="Clink" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group">
+                                <label asp-for="ClassDate">Class Date</label>
+                                <input asp-for="ClassDate" type="date" class="form-control" />
+                                <span asp-validation-for="ClassDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Add Class</button>
+                                <button class="btn btn-secondary" asp-controller="Student" asp-action="Course" asp-route-id=@ViewBag.UserId>Back</button>
+                            </div>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

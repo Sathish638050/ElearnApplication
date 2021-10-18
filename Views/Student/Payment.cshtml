@@ -1,0 +1,66 @@
+﻿@model ELearnApplication.Models.Customer
+
+@{ 
+    ViewData["Title"] = "Course";
+}
+
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Payment</h4>
+                </header>
+                <article class="card-body">
+                    <form asp-action="Payment">
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="Name">Name</label>
+                                <input asp-for="Name" type="text" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="Debit">Debit Card Number</label>
+                                <input asp-for="Debit" type="text" class="form-control" />
+                                <span asp-validation-for="Debit" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="Cvv">CVV Number</label>
+                                <input asp-for="Cvv" type="text" class="form-control" />
+                                <span asp-validation-for="Cvv" class="text-danger">@ViewBag.cvvError</span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="Expiry">Valid Year</label>
+                                <input class="form-control" type="text" asp-for="Expiry" />
+                                <span class="text-danger" asp-validation-for="Expiry"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row row" style="display:none">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="UserId">UserId</label>
+                                <input asp-for="UserId" type="text" class="form-control" value="@ViewBag.UserId" />
+                                <span asp-validation-for="UserId" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="CourseId">CourseId</label>
+                                <input asp-for="CourseId" type="text" class="form-control" value="@ViewBag.CourseId" />
+                                <span asp-validation-for="CourseId"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Payment</button>
+                            </div>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

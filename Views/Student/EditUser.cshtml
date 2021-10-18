@@ -1,0 +1,80 @@
+﻿@model ELearnApplication.Models.UserAccount
+
+@{ 
+    ViewData["Title"] = "Profile";
+}
+
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Edit Details</h4>
+                </header>
+                <article class="card-body">
+                    <form asp-action="EditUser">
+                        <div class="row form-row" style="display:none;">
+                            <div class="form-group">
+                                <label asp-for="UserId">UserId</label>
+                                <input type="text" asp-for="UserId" class="form-control" readonly/>
+                                <span asp-validation-for="UserId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="FirstName">First name </label>
+                                <input asp-for="FirstName" type="text" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="LastName">Last name</label>
+                                <input asp-for="LastName" type="text" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Email">Email</label>
+                                <input asp-for="Email" type="email" class="form-control">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Phone">Phone</label>
+                                <input asp-for="Phone" type="text" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group col-md-6" style="display:none;">
+                                <label asp-for="Username">Username</label>
+                                <input asp-for="Username" type="text" class="form-control" readonly/>
+                                <span asp-validation-for="Username" class="text-danger">@ViewBag.UserError</span>
+                            </div>
+                            <div class="form-group col-md-6" style="display:none;">
+                                <label asp-for="Password">Password</label>
+                                <input asp-for="Password" type="password" class="form-control"  />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row form-row">
+                            <div class="form-group" style="display:none;">
+                                <label asp-for="UserImage" style="display:none;">Select Image</label>
+                                <input type="file" asp-for="UserImage" class="form-control" />
+                                <span asp-validation-for="UserImage" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label asp-for="Role">Role</label>
+                            <input asp-for="Role" value="Student" class="form-control" />
+                        </div><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Save Changes  </button>
+                            <button type="submit" class="btn btn-secondary btn-block" asp-controller="Student" asp-action="Profile">Back</button>
+                        </div>
+                    </form>
+                </article>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+
+@{
+    ViewBag.UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    ViewBag.Role = @HttpContextAccessor.HttpContext.Session.GetString("Role");
+}
+@if (ViewBag.Role == "Student")
+{
+    <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Home" ? "active" : "")" aria-current="true">
+        Home
+    </a>
+
+
+    <a asp-controller="Student" asp-action="Course" asp-route-id="0" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Course" ? "active" : "")">
+        Courses
+    </a>
+    <a asp-controller="Student" asp-action="Course" asp-route-id="@ViewBag.UserId" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "MyCourse" ? "active" : "")">
+        Enrolled Courses
+    </a>
+
+
+    <a style="display:none" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Questions" ? "active" : "")">
+        Questions&Answers
+    </a>
+
+
+    <a asp-controller="Student" asp-action="Profile" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Profile" ? "active" : "")">
+        Profile
+    </a>
+
+
+    <a asp-controller="Home" asp-action="Contact" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Contact" ? "active" : "")">
+        Contact Us
+    </a>
+}
+else if (ViewBag.Role == "Admin")
+{
+    <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Home" ? "active" : "")" aria-current="true">
+        Home
+    </a>
+
+
+    <a asp-controller="Student" asp-action="Course" asp-route-id="0" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Course" ? "active" : "")">
+        Courses
+    </a>
+
+
+    <a asp-controller="Admin" asp-action="List" asp-route-id="0" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "StudentList" ? "active" : "")">
+        Student List
+    </a>
+
+
+    <a asp-controller="Admin" asp-action="List" asp-route-id="1" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "StaffList" ? "active" : "")">
+        Staff List
+    </a>
+
+    <a asp-controller="Admin" asp-action="NewStaffList" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "NewRequest" ? "active" : "")">
+        New Staff Request
+    </a>
+    <a asp-controller="Admin" asp-action="MessageList" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "MessageList" ? "active" : "")">
+        Message
+    </a>
+}
+else
+{
+    <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Home" ? "active" : "")">
+        Home
+    </a>
+    <a asp-controller="Student" asp-action="Course" asp-route-id="0" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Course" ? "active" : "")">
+        Courses
+    </a>
+    <a asp-controller="Student" asp-action="Course" asp-route-id="@ViewBag.UserId" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "MyCourse" ? "active" : "")">
+        My Courses
+    </a>
+    <a asp-controller="Staff" asp-action="AddCourse" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "NewCourse" ? "active" : "")">
+        Create New Course
+    </a>
+    <a asp-controller="Student" asp-action="Profile" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "Profile" ? "active" : "")">
+        Profile
+    </a>
+    <a style="display:none" asp-controller="Staff" asp-action="ClassList" class="list-group-item list-group-item-action py-2 ripple @(@ViewData["Title"] == "NewCourse" ? "active" : "")">
+        Class List
+    </a>
+
+
+}

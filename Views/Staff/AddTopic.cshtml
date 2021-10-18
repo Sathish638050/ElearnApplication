@@ -1,0 +1,66 @@
+﻿@model ELearnApplication.Models.Topic
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    ViewBag.UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    ViewData["Title"] = "MyCourse";
+}
+
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Topic Details</h4>
+                </header>
+                <article class="card-body">
+                    <form asp-action="AddTopic">
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="TopicName">Topic Name</label>
+                                <input asp-for="TopicName" type="text" class="form-control" />
+                                <span asp-validation-for="TopicName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="TopicDesc">Topic Description</label>
+                                <textarea asp-for="TopicDesc" class="form-control"></textarea>
+                                <span asp-validation-for="TopicDesc" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="MaterialPath">Topic Material</label>
+                                <input asp-for="MaterialPath" type="file" class="form-control" />
+                                <span asp-validation-for="MaterialPath" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="VideoPath">Topic Video</label>
+                                <input asp-for="VideoPath" type="file" class="form-control" />
+                                <span asp-validation-for="VideoPath" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row"  style="display:none">
+                            <div class="from-group">
+                                <label asp-for="CourseId">Course Id</label>
+                                <input asp-for="CourseId" type="text" class="form-control" value=@ViewBag.CourseId />
+                                <span asp-validation-for="CourseId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Add Topic</button>
+                                <button class="btn btn-secondary" asp-controller="Student" asp-action="Course" asp-route-id=@ViewBag.UserId>Back</button>
+                            </div>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

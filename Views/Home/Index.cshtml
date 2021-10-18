@@ -1,0 +1,256 @@
+﻿@model ELearnApplication.Models.ViewModel
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+
+@{
+    ViewBag.Role = @HttpContextAccessor.HttpContext.Session.GetString("Role");
+    ViewBag.UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    ViewData["Title"] = "Home";
+
+}
+<style>
+    #welcome {
+        background-color: lightblue;
+    }
+
+    .card-box {
+        border: 1px solid #ddd;
+        padding: 20px;
+        box-shadow: 0px 0px 10px 0px #c5c5c5;
+        margin-bottom: 30px;
+        float: left;
+        border-radius: 10px;
+    }
+
+        .card-box .card-thumbnail {
+            max-height: 200px;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: 1s;
+        }
+
+            .card-box .card-thumbnail:hover {
+                transform: scale(1.2);
+            }
+
+        .card-box h3 a {
+            font-size: 20px;
+            text-decoration: none;
+        }
+</style>
+
+<div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+     style="background-image: url('https://mdbootstrap.com/img/new/slides/003.jpg');">
+    <h1 class="mb-3 h2">You can learn anything</h1>
+
+    @if ((ViewBag.UserId == null))
+    {
+        <a class="btn btn-outline-success text-white" asp-controller="User" asp-action="Login">Start Learn Now</a>
+        <a class="btn btn-outline-success text-white" asp-controller="Home" asp-action="AddStaff">Teachers, Start here</a>
+    }
+    else
+    {
+        if (ViewBag.Role == "Student")
+        {
+            <a class="btn btn-outline-success text-white" asp-controller="Student" asp-action="Course">Start Learn Now</a>
+        }
+        else if(ViewBag.Role == "Staff")
+        {
+            <a class="btn btn-outline-success text-white" asp-controller="Staff" asp-action="AddCourse">Teachers, Start here</a>
+        }
+
+
+    }
+
+
+</div>
+<br />
+@if (ViewBag.ErrorMsg == "Empty")
+{
+    <h5>Popular Courses</h5>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        @foreach (var obj in Model.Course)
+        {
+            <div class="col">
+                <div class="card">
+                    <img src="~/images/@obj.Picture" style="height:150px">
+                    <div class="card-body">
+                        <h5 class="card-title">@obj.CourseName</h5>
+                        <p class="card-text">@obj.Description</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row justify-content-end" style="padding-bottom: 30px;">
+        <a class="btn btn-primary" style="width:115px; " asp-controller="Student" asp-action="Course">Learn More</a>
+    </div>
+}
+else
+{
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            @if (ViewBag.Role == "Student")
+                            {
+                                <h5>Endrolled Courses</h5>
+                            }
+                            else
+                            {
+                                <h5>Handled Course</h5>
+                            }
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var obj in Model.Course)
+                                {
+                                    <tr>
+                                        <td scope="row">
+                                            @obj.CourseName
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="location.href='@Url.Action("Course","Student")'">
+                                            Learn More
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            @if (ViewBag.Role == "Student")
+                            {
+                                <h5>Your Today Class</h5>
+                            }
+                            else
+                            {
+                                <h5>Today Handle Classes</h5>
+                            }
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Class.Count == 0)
+                            {
+                            <tr class="text-center">
+                                @if (ViewBag.Role == "Student")
+                                {
+                                    <td>Today you have no classes</td>
+                                }
+                                else
+                                {
+                                    <td>Today Handle No Classes</td>
+                                    <td>
+                                        <a class="btn btn-primary" asp-controller="Student" asp-action="Course" asp-route-id="@ViewBag.UserId">Add Class</a>
+                                    </td>
+                                }
+                            </tr>
+                            }
+                            else
+                            {
+                                @foreach (var obj in Model.Class.Zip(Model.Course, (a, b) => new { a, b }))
+                                {
+                                    <tr>
+                                        <td scope="row">@obj.b.CourseName</td>
+                                        <td>@obj.a.StartTime To @obj.a.EndTime</td>
+                                        <td>
+                                            <a href=@obj.a.Clink class="btn btn-primary">Join</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if ((ViewBag.UserId == null) || (ViewBag.Role == "Student")||(ViewBag.Role == "Admin"))
+{
+    <div class="card mb-3" style="padding-top:10px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/images/caro3.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Student</h5>
+                    <p class="card-text">You can learn anything</p>
+                    <p class="card-text"><small class="text-muted">Students and Learn</small></p>
+                    @if (ViewBag.UserId == null)
+                    {
+                        <a class="btn btn-primary" asp-controller="User" asp-action="Login">Learners , start here</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" asp-controller="Student" asp-action="Course">Learners , start here</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@if ((ViewBag.UserId == null) || (ViewBag.Role == "Staff")|| (ViewBag.Role == "Admin"))
+{
+    <div class="card mb-3" style="padding-top:10px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="~/images/caro2.png" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Teachers</h5>
+                    <p class="card-text">We empower teachers to support their entire classroom.</p>
+                    <p class="card-text"><small class="text-muted">Students and Learn</small></p>
+                    @if (ViewBag.UserId == null)
+                    {
+                        <a class="btn btn-primary" asp-controller="User" asp-action="Login">Teachers , start here</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary" asp-controller="Student" asp-action="Course">Teachers , start here</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<footer class="bg-light text-center text-lg-start" style="padding-top:20px">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020 Copyright:
+        <a class="text-dark">EazyLearn</a>
+    </div>
+    <!-- Copyright -->
+</footer>

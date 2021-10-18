@@ -1,0 +1,47 @@
+﻿@model IList<ELearnApplication.Models.Topic>
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{ 
+    ViewBag.UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+
+@if (ViewBag.TopicCount == "Empty")
+{
+    <div class="card text-center">
+        <h5>There are no topics assigned in this course</h5><br />
+        <a asp-controller="Student" asp-action="Course" asp-route-id=@ViewBag.UserId class="btn btn-primary">Back</a>
+    </div>
+}
+else
+{
+    <h3>Topics</h3>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        @foreach (var obj in Model)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        @obj.TopicName
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <video width="500" height="300" controls>
+                            <source src=~/videos/@obj.VideoPath type="video/mp4">
+                            <source src="/videos/@obj.VideoPath" type="video/ogg">
+                            Your browser does not support the video tag.
+                        </video>
+
+                        <br />
+                        <a href="~/Material/@obj.MaterialPath" target="_blank" class="btn btn-primary">Download Material</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+}
+
+
+

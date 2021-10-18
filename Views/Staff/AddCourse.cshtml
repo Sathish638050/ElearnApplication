@@ -1,0 +1,65 @@
+﻿@model ELearnApplication.Models.Course
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+
+@{
+    ViewData["Title"] = "NewCourse";
+    ViewBag.UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Course Details</h4>
+                </header>
+                <article class="card-body">
+                    <form asp-action="AddCourse">
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="CourseName">Course Name</label>
+                                <input asp-for="CourseName" type="text" class="form-control" />
+                                <span asp-validation-for="CourseName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="Description">Course Description</label>
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="Picture">CoursePicture</label>
+                                <input asp-for="Picture" type="file" class="form-control" />
+                                <span asp-validation-for="Picture" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group">
+                                <label asp-for="Amount">Amount</label>
+                                <input asp-for="Amount" type="text" class="form-control" />
+                                <span asp-validation-for="Amount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="from-group" style="display:none">
+                                <label asp-for="UserId">Usename</label>
+                                <input asp-for="UserId" type="text" class="form-control" value=@ViewBag.UserId />
+                                <span asp-validation-for="UserId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Add Course</button>
+                            </div>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>

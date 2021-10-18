@@ -1,0 +1,73 @@
+﻿@model ELearnApplication.Models.UserAccount
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+    ViewBag.UserError = @HttpContextAccessor.HttpContext.Session.GetString("ErrorUser");
+    ViewData["Title"] = "Register";
+}
+<div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <h4 class="card-title mt-2">Sign up</h4>
+                </header>
+                <article class="card-body">
+                    <form asp-action="Register">
+                        <div class="form-row row">
+                            <div class="col-md-6 form-group">
+                                <label asp-for="FirstName">First name </label>
+                                <input asp-for="FirstName" type="text" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label asp-for="LastName">Last name</label>
+                                <input asp-for="LastName" type="text" class="form-control"/>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-row row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Email">Email</label>
+                                <input asp-for="Email" type="email" class="form-control">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Phone">Phone</label>
+                                <input asp-for="Phone" type="text" class="form-control" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div> 
+                        </div> 
+                        <div class="form-row row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="Username">Username</label>
+                                <input asp-for="Username" type="text" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger">@ViewBag.UserError</span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label asp-for="Password">Password</label>
+                                <input asp-for="Password" type="password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row form-row">
+                            <div class="form-group">
+                                <label asp-for="UserImage">Select Image</label>
+                                <input type="file" asp-for="UserImage" class="form-control" />
+                                <span asp-validation-for="UserImage" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label asp-for="Role">Role</label>
+                            <input asp-for="Role" value="Student" class="form-control" />
+                        </div><br />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+                        </div> 
+                    </form>
+                </article>
+                <div class="border-top card-body text-center">Have an account? <a asp-controller="User" asp-action="Login">Log In</a></div>
+            </div>
+        </div>
+    </div> 
+</div> 

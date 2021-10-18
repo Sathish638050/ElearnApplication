@@ -1,0 +1,23 @@
+﻿@model IList<ELearnApplication.Models.Contact>
+@{
+    ViewData["Title"] = "MessageList";
+}
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        @foreach (var obj in Model)
+        {
+            <div class="col">
+                <div class="card" style="width:18rem">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Name :@obj.Name</li>
+                        <li class="list-group-item">Email :@obj.Email</li>
+                        <li class="list-group-item">Message&Feedback : @obj.Message</li>
+                    </ul>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
