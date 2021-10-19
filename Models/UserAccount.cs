@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,7 +39,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync("https://localhost:44370/api/Auth/Register", content))
+                using (var response = await httpClient.PostAsync("https://loginauthapi1.azurewebsites.net/api/Auth/Register", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     EmlObj = JsonConvert.DeserializeObject<UserAccount>(apiResponse);
@@ -51,7 +51,7 @@ namespace ELearnApplication.Models
             bool auth = false;
             using(var httpClient = new HttpClient())
             {
-                using(var response = await httpClient.GetAsync("https://localhost:44370/api/Auth/CheckAuthentication"))
+                using(var response = await httpClient.GetAsync("https://loginauthapi1.azurewebsites.net/api/Auth/CheckAuthentication"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     auth = Convert.ToBoolean(apiResponse);
@@ -65,7 +65,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PutAsync("https://localhost:44359/api/Student/UpdateUserPic?id=" + id, content))
+                using (var response = await httpClient.PutAsync("https://studentapi1.azurewebsites.net/api/Student/UpdateUserPic?id=" + id, content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -78,7 +78,7 @@ namespace ELearnApplication.Models
             using(var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
-                using (var response = await  httpClient.PostAsync("https://localhost:44370/api/Auth/UserDetail", content))
+                using (var response = await  httpClient.PostAsync("https://loginauthapi1.azurewebsites.net/api/Auth/UserDetail", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     ua = JsonConvert.DeserializeObject<UserAccount>(apiResponse);
@@ -92,7 +92,7 @@ namespace ELearnApplication.Models
             UserAccount ua = new UserAccount();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44359/api/Student/GetStudentByID?id=" + id))
+                using (var response = await httpClient.GetAsync("https://studentapi1.azurewebsites.net/api/Student/GetStudentByID?id=" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     ua = JsonConvert.DeserializeObject<UserAccount>(apiResponse);
@@ -106,7 +106,7 @@ namespace ELearnApplication.Models
             UserAccount ua = new UserAccount();
             using(var httpClient = new HttpClient())
             {
-                using(var response = await httpClient.GetAsync("https://localhost:44370/api/Auth/" + name))
+                using(var response = await httpClient.GetAsync("https://loginauthapi1.azurewebsites.net/api/Auth/" + name))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     ua = JsonConvert.DeserializeObject<UserAccount>(apiResponse);
@@ -120,7 +120,7 @@ namespace ELearnApplication.Models
             List<UserAccount> lc = new List<UserAccount>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44370/api/Auth/GetStaffList"))
+                using (var response = await httpClient.GetAsync("https://loginauthapi1.azurewebsites.net/api/Auth/GetStaffList"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<UserAccount>>(apiResponse);
@@ -135,7 +135,7 @@ namespace ELearnApplication.Models
             List<UserAccount> lc = new List<UserAccount>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44370/api/Auth/GetStudentList"))
+                using (var response = await httpClient.GetAsync("https://loginauthapi1.azurewebsites.net/api/Auth/GetStudentList"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<UserAccount>>(apiResponse);
@@ -152,7 +152,7 @@ namespace ELearnApplication.Models
             using(var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
-                using(var response = await httpClient.PostAsync("https://localhost:44370/api/Auth", content))
+                using(var response = await httpClient.PostAsync("https://loginauthapi1.azurewebsites.net/api/Auth", content))
                 {
                     token = await response.Content.ReadAsStringAsync();
                 }
@@ -166,7 +166,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(u), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PutAsync("https://localhost:44359/api/Student/UpdateUser?id="+id,content))
+                using (var response = await httpClient.PutAsync("https://studentapi1.azurewebsites.net/api/Student/UpdateUser?id=" + id,content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                 }
