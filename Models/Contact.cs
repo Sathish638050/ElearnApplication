@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +24,7 @@ namespace ELearnApplication.Models
             using(var httpClient  = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json");
-                using(var response = await httpClient.PostAsync("https://localhost:44370/api/Contact/Contact", content))
+                using(var response = await httpClient.PostAsync("https://loginauthapi1.azurewebsites.net/api/Contact/Contact", content))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -37,7 +37,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 
-                using (var response = await httpClient.GetAsync("https://localhost:44370/api/Contact/GetContactDetails"))
+                using (var response = await httpClient.GetAsync("https://loginauthapi1.azurewebsites.net/api/Contact/GetContactDetails"))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<Contact>>(apiResponse);
