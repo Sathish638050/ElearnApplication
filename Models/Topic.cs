@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,7 +27,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(t), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync("https://localhost:44303/api/Staff/AddTopic", content))
+                using (var response = await httpClient.PostAsync("https://staffcontrollapi.azurewebsites.net//api/Staff/AddTopic", content))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -39,7 +39,7 @@ namespace ELearnApplication.Models
             List<Topic> lc = new List<Topic>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44303/api/Staff/Topics?cid=" + id))
+                using (var response = await httpClient.GetAsync("https://staffcontrollapi.azurewebsites.net//api/Staff/Topics?cid=" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<Topic>>(apiResponse);
