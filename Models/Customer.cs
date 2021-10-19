@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +30,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync("https://localhost:44359/api/Student/MakePayment", content))
+                using (var response = await httpClient.PostAsync("https://studentapi1.azurewebsites.net/api/Student/MakePayment", content))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                 }
