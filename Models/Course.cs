@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,7 +29,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PostAsync("https://localhost:44303/api/Staff/AddCourses", content))
+                using (var response = await httpClient.PostAsync("https://staffcontrollapi.azurewebsites.net//api/Staff/AddCourses", content))
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -41,7 +41,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(c), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PutAsync("https://localhost:44303/api/Staff/EditCourse?id=" + id, content))
+                using (var response = await httpClient.PutAsync("https://staffcontrollapi.azurewebsites.net//api/Staff/EditCourse?id=" + id, content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -53,7 +53,7 @@ namespace ELearnApplication.Models
             List<Course> lc = new List<Course>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44359/api/Student/GetAllCourse"))
+                using (var response = await httpClient.GetAsync("https://studentapi1.azurewebsites.net/api/Student/GetAllCourse"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<Course>>(apiResponse);
@@ -68,7 +68,7 @@ namespace ELearnApplication.Models
             List<Course> lc = new List<Course>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44303/api/Staff/GetCourseByUser?id=" + id))
+                using (var response = await httpClient.GetAsync("https://staffcontrollapi.azurewebsites.net/api/Staff/GetCourseByUser?id=" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<Course>>(apiResponse);
@@ -82,7 +82,7 @@ namespace ELearnApplication.Models
             Course c = new Course();
             using(var httpClient = new HttpClient())
             {
-                using(var response = await httpClient.GetAsync("https://localhost:44359/api/Student/GetCourseById?id=" + id))
+                using(var response = await httpClient.GetAsync("https://studentapi1.azurewebsites.net/api/Student/GetCourseById?id=" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     c = JsonConvert.DeserializeObject<Course>(apiResponse);                
@@ -96,7 +96,7 @@ namespace ELearnApplication.Models
             List<Course> lc = new List<Course>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44359/api/Student/GetEnrollCourses?myid="+id))
+                using (var response = await httpClient.GetAsync("https://studentapi1.azurewebsites.net/api/Student/GetEnrollCourses?myid=" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<Course>>(apiResponse);
