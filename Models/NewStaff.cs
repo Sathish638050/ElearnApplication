@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,7 +43,7 @@ namespace ELearnApplication.Models
             using(var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(n), Encoding.UTF8, "application/json");
-                using(var response = await httpClient.PostAsync("https://localhost:44370/api/AddNewStaff/AddRequestStaff", content))
+                using(var response = await httpClient.PostAsync("https://loginauthapi1.azurewebsites.net/api/AddNewStaff/AddRequestStaff", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     s = JsonConvert.DeserializeObject<NewStaff>(apiResponse);
@@ -56,7 +56,7 @@ namespace ELearnApplication.Models
             using (var httpClient = new HttpClient())
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(n), Encoding.UTF8, "application/json");
-                using (var response = await httpClient.PutAsync("https://localhost:44370/api/Auth/EditRequest?id=" + id,content))
+                using (var response = await httpClient.PutAsync("https://loginauthapi1.azurewebsites.net/api/Auth/EditRequest?id=" + id,content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                 }
@@ -68,7 +68,7 @@ namespace ELearnApplication.Models
             List<NewStaff> lc = new List<NewStaff>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44370/api/Auth/GetDetailByReqName?name="+name))
+                using (var response = await httpClient.GetAsync("https://loginauthapi1.azurewebsites.net/api/Auth/GetDetailByReqName?name=" + name))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<NewStaff>>(apiResponse);
@@ -82,7 +82,7 @@ namespace ELearnApplication.Models
             List<NewStaff> lc = new List<NewStaff>();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync("https://localhost:44370/api/Auth/GetNewRequest"))
+                using (var response = await httpClient.GetAsync("https://loginauthapi1.azurewebsites.net/api/Auth/GetNewRequest"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     lc = JsonConvert.DeserializeObject<List<NewStaff>>(apiResponse);
